@@ -1,0 +1,61 @@
+version: '3'
+services:
+
+    # The Backend Application
+    php:
+        build:
+            context: ./docker/
+            dockerfile: php.dockerfile
+        image: maufin/php
+        container_name: backend 
+        working_dir: /var/www
+        command: ['bash','-c','php artisan serve --host=0.0.0.0 --port=8080' ]
+        volumes:
+            - ./src/:/var/www
+        environment:
+            DB_PORT: 3306
+            DB_HOST: mariadb
+        ports:
+            - 8080:8080
+        networks:
+            - maufin_net
+        
+    # The Web Server
+    web:
+        build:
+            context: ./docker/
+            dockerfile: web.dockerfile
+        image: maufin/nginx
+        container_name: webserver
+        working_dir: /var/www
+        ports:
+            - 80:80
+        depends_on:
+            - php
+        networks:
+            - maufin_net
+
+    # The Database
+    database:
+        build:
+            context: ./docker/
+            dockerfile: mariadb.dockerfile
+        image: maufin/mariadb
+        container_name: database
+        volumes:
+            - dbdata:/var/lib/mysql
+        environment:
+            - "MYSQL_DATABASE=homestead"
+            - "MYSQL_USER=homestead"
+            - "MYSQL_PASSWORD=secret"
+            - "MYSQL_ROOT_PASSWORD=secret"
+        ports:
+            - "3306:3306"
+        networks:
+            - maufin_net
+    
+volumes:
+    dbdata:
+networks:
+    maufin_net:
+        driver: "bridge"
