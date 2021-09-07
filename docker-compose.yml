@@ -14,7 +14,7 @@ services:
             - ./src/:/var/www
         environment:
             DB_PORT: 3306
-            DB_HOST: mariadb
+            DB_HOST: database
         ports:
             - 8080:8080
         networks:
