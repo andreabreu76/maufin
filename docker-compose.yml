@@ -11,7 +11,7 @@ services:
         working_dir: /var/www
         command: ['bash','-c','php artisan serve --host=0.0.0.0 --port=8080' ]
         volumes:
-            - ./src/:/var/www
+            - ./back/:/var/www
         environment:
             DB_PORT: 3306
             DB_HOST: database
@@ -19,7 +19,22 @@ services:
             - 8080:8080
         networks:
             - maufin_net
-        
+    # The Frontend Application        
+    vue:
+        build:
+            context: ./docker/
+            dockerfile: vue.dockerfile
+        image: maufin/nodejs
+        container_name: frontend
+        working_dir: /home/node/app
+        command: ['bash','-c','npm run serve']
+        volumes:
+            - ./front/:/home/node/app
+        ports:
+            - 3000:3000
+        networks:
+            - maufin_net
+
     # The Web Server
     web:
         build:
