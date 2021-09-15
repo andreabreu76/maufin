@@ -26,7 +26,7 @@ class FinanceMovimentsController extends Controller
     public function store(Request $request)
     {
         $result = FinanceMoviment::create($request->all());
-        return response()->json(['id' => $result->id]);
+        return response()->json(['id' => $result->id], 201);
     }
 
 
@@ -73,4 +73,9 @@ class FinanceMovimentsController extends Controller
         $result = FinanceMoviment::where('movimento', 1)->get();
         return response()->json($result);
     }
+
+
+    // FUNCAO QUE MOSTRE O VALOR DE UMA UNICA OPERACAO
+    // FUNCAO QUE SOME TODOS OS VALORES DE OPERACOES QUE SEJAM DE CREDITO
+        
 }

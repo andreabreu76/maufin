@@ -9,15 +9,15 @@ Um projeto de controle financeiro base para ir avançando sua complexbilidade de
 ## Instalação
 
 ```bash
-cd src && composer install
-```
-
-```bash
-php artisan key:generate
+cd back && composer install
 ```
 
 ```bash
 cp .env.dev .env
+```
+
+```bash
+php artisan key:generate
 ```
 
 ```bash
@@ -27,4 +27,3 @@ cd ../ && docker-compose up -d  --build
 ```bash
 docker exec -it backend php artisan migrate
 ```
-
