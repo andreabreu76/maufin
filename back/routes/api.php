@@ -2,7 +2,7 @@
 
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
-use App\Http\Controllers\FinanceMovimentsController;
+use App\Http\Controllers\FinanceMoviments\getSumCreditsController;
 
 /*
 |--------------------------------------------------------------------------
@@ -18,12 +18,5 @@ use App\Http\Controllers\FinanceMovimentsController;
 Route::middleware('auth:sanctum')->get('/user', function (Request $request) {
     return $request->user();
 });
-
-Route::get('/finance/credit', [FinanceMovimentsController::class, 'getMovimentsCredito']);
-Route::get('/finance', [FinanceMovimentsController::class, 'index']);
-Route::get('/finance/{id}', [FinanceMovimentsController::class, 'show']);
-Route::post('/finance', [FinanceMovimentsController::class, 'store']);
-Route::put('/finance/{id}', [FinanceMovimentsController::class, 'update']);
-Route::delete('/finance/{id}', [FinanceMovimentsController::class, 'destroy']);
 
 
